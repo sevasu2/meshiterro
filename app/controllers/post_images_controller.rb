@@ -13,7 +13,9 @@ class PostImagesController < ApplicationController
 	end
 
 	def index
-		@post_images = PostImage.all
+		# @post_images = PostImage.all
+		@post_images = PostImage.page(params[:page]).reverse_order
+		 # これを1ページ分の決められた数のデータを新しい順に取得するように変更
 	end
 
 	def show
