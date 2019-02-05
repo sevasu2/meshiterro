@@ -1,0 +1,92 @@
+<section class="sct-color-1 slice">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 post_images_container">
+        <div class="post-item">
+          <div class="post-meta-top">
+            <div class="post-image">
+              <%= attachment_image_tag @post_image, :image %>
+            </div>
+          </div>
+          <div class="post-content">
+            <h2 class="post-title"><%= @post_image.shop_name %></h2>
+            <ul class="meta-info-cells v4 float-wrapper">
+              <li>
+                <i class="fa fa-user"></i>
+                By<a href="#"><%= @post_image.user.name %></a>
+              </li>
+              <li>
+                <i class="fa fa-calendar"></i><%= @post_image.created_at.strftime('%Y/%m/%d') %>
+                <!-- この中にある'%Y/%m/%d'という書き方で年/月/日のフォーマットへ形式を変換するものです。この%Yや%m、%dは日時表示のフォーマットを指定する際に使われる指定 -->
+              </li>
+              <% if @post_image.favorited_by?(current_user) %>
+              <!-- 投稿された画像に付けられたいいねに自分（ログインしているユーザ）が含まれているかを先ほどPostImageモデルで実装したfavorited_by?メソッドで判定します。 -->
+              <li>
+                <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+                <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+                <%= @post_image.favorites.count %> いいね
+                <% end %>
+                <!-- iタグとBootstrapのクラスでハートマークを表示して、リンクのaタグのメソッドを条件によって変えています。 -->
+              </li>
+              <% end %>
+              <li>
+                <i class="fa fa-comment"></i>
+                <a href="#comments"><%= @post_image.post_comments.count %></a>
+              </li>
+              <li>
+                <% if @post_image.user == current_user %>
+                <%= link_to "削除", post_image_path(@post_image), method: :delete %>
+                <!-- @post_image.userでは投稿(@post_image)に紐づいているユーザ(.user) が取得できます。current_userはdeviseの用意しているヘルパーで現在ログインしているユーザが取得できます。 この二つを == で比較して一致していれば削除ボタンが表示される記述になっています。 -->
+                <% end %>
+              </li>
+            </ul>
+            <div class="post-content-inner mt-20">
+              <p><%= @post_image.caption %></p>
+            </div>
+          </div>
+          <div class="comment-list bt style-2" id="comments">
+            <div class="float-wrapper">
+              <h2 class="comment-count"><%= @post_image.post_comments.count %>件コメント</h2>
+            </div>
+            <ol>
+              <% @post_image.post_comments.each do |post_comment| %>
+              <li class="comment">
+                <div class="comment-body bb">
+                  <div class="comment-avatar">
+                    <div class="avatar">
+                      <!-- 挿入 -->
+                    </div>
+                  </div>
+                  <div class="comment-text">
+                    <div class="comment-author clearfix">
+                      <a href="#" class="link-author"><%= post_comment.user.name %></a>
+                      <span class="comment-meta">
+                        <span class="comment-date"><%= @post_image.created_at.strftime('%Y/%m/%d') %></span>
+                      </span>
+                    </div>
+                    <div class="comment-entry"><%= post_comment.comment %></div>
+                  </div>
+                </div>
+              </li>
+              <% end %>
+            </ol>
+          </div>
+          <hr>
+          <div class="section-title-wrapper style-1 v1 mt-30" id="divAddComment">
+            <h3 class="section-title left">
+              <span>コメント</span>
+            </h3>
+          </div>
+          <%= form_for [@post_image, @post_comment] do |f| %>
+          <div class="row">
+            <div class="col-sm-12">
+              <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
+            </div>
+          </div>
+          <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
