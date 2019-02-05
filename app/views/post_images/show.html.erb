@@ -6,22 +6,19 @@
 
           <div class="post-meta-top">
             <div class="post-image">
-              <a href="images/sample-post1.jpg" class="theater">
-                <!-- <img src="images/sample-post1.jpg"> -->
-                <%= image_tag('sample-post1.jpg') %>
-              </a>
+              <%= attachment_image_tag @post_image, :image %>
             </div>
           </div>
-
           <div class="post-content">
-            <h2 class="post-title">ここにタイトル</h2>
+            <h2 class="post-title"><%= @post_image.shop_name %></h2>
             <ul class="meta-info-cells v4 float-wrapper">
               <li>
-                <i class="fa fa-user"></i>By
-                <a href="#">投稿者名</a>
-              </li>
-              <li>
-                <i class="fa fa-calendar"></i>2017/07/21
+                <i class="fa fa-user"></i>By<a href="#">
+                 <%= @post_image.user.name %></a>
+               </li>
+               <li>
+                <i class="fa fa-calendar"></i><%= @post_image.created_at.strftime('%Y/%m/%d') %>
+                <!-- この中にある'%Y/%m/%d'という書き方で年/月/日のフォーマットへ形式を変換するものです。この%Yや%m、%dは日時表示のフォーマットを指定する際に使われる指定 -->
               </li>
               <li>
                 <i class="fa fa-heart"></i>
@@ -33,55 +30,8 @@
               </li>
             </ul>
             <div class="post-content-inner mt-20">
-              <p>ここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキスト</p>
+              <p><%= @post_image.caption %></p>
             </div>
           </div>
 
-          <div class="comment-list bt style-2" id="comments">
-            <div class="float-wrapper">
-              <h2 class="comment-count">4件コメント</h2>
-            </div>
-            <ol>
-              <li class="comment">
-                <div class="comment-body bb">
-                  <div class="comment-avatar">
-                    <div class="avatar">
-                      <!-- <img src="images/sample-author1.jpg"> -->
-                      <%= image_tag('sample-author1.jpg') %>
-                    </div>
-                  </div>
-                  <div class="comment-text">
-                    <div class="comment-author clearfix">
-                      <a href="#">投稿者名</a>
-                      <span class="comment-meta">
-                        <span class="comment-date">2017/07/21</span>
-                      </span>
-                    </div>
-                    <div class="comment-entry">コメントがここに表示されますコメントがここに表示されますコメントがここに表示されますコメントがここに表示されますコメントがここに表示されますコメントがここに表示されますコメントがここに表示されます</div>
-                  </div>
-                </div>
-              </li>
-            </ol>
-          </div>
-          <hr>
-
-          <!-- Add comment section -->
-          <div class="section-title-wrapper style-1 v1 mt-30" id="divAddComment">
-            <h3 class="section-title left">
-              <span>コメント</span>
-            </h3>
-          </div>
-          <form class="mt-20">
-            <div class="row">
-              <div class="col-sm-12">
-                <textarea class="form-control" rows="5" placeholder="コメントをここに"></textarea>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-lg btn-base-1 mt-20 pull-right">送信する</button>
-          </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
