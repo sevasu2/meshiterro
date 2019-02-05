@@ -36,6 +36,7 @@
               <li>
                 <% if @post_image.user == current_user %>
                 <%= link_to "削除", post_image_path(@post_image), method: :delete %>
+                <!-- @post_image.userでは投稿(@post_image)に紐づいているユーザ(.user) が取得できます。current_userはdeviseの用意しているヘルパーで現在ログインしているユーザが取得できます。 この二つを == で比較して一致していれば削除ボタンが表示される記述になっています。 -->
                 <% end %>
               </li>
             </ul>

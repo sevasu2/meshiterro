@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   root 'post_images#index'
   resources :post_images, only:[:new, :index, :show, :create]do
+  	 resource :favorites, only: [:create, :destroy]
  	 resource :post_comments, only: [:create, :destroy]
  	 # 単数にするとそのコントローラのidがリクエストに含まれなくなります。
  	 # post_commentsのshowページは必要ない（コメントの詳細ページは作成しない）ため、
