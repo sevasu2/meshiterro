@@ -19,14 +19,23 @@
                 <i class="fa fa-calendar"></i><%= @post_image.created_at.strftime('%Y/%m/%d') %>
                 <!-- この中にある'%Y/%m/%d'という書き方で年/月/日のフォーマットへ形式を変換するものです。この%Yや%m、%dは日時表示のフォーマットを指定する際に使われる指定 -->
               </li>
-              <!-- ここに入力 -->
+              <% if @post_image.favorited_by?(current_user) %>
+              <!-- 投稿された画像に付けられたいいねに自分（ログインしているユーザ）が含まれているかを先ほどPostImageモデルで実装したfavorited_by?メソッドで判定します。 -->
+              <li>
+                <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+                <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+                <%= @post_image.favorites.count %> いいね
+                <% end %>
+                <!-- iタグとBootstrapのクラスでハートマークを表示して、リンクのaタグのメソッドを条件によって変えています。 -->
+              </li>
+              <% end %>
               <li>
                 <i class="fa fa-comment"></i>
                 <a href="#comments"><%= @post_image.post_comments.count %></a>
               </li>
               <li>
                 <% if @post_image.user == current_user %>
-                  <%= link_to "削除", post_image_path(@post_image), method: :delete %>
+                <%= link_to "削除", post_image_path(@post_image), method: :delete %>
                 <% end %>
               </li>
             </ul>
@@ -40,24 +49,24 @@
             </div>
             <ol>
               <% @post_image.post_comments.each do |post_comment| %>
-                <li class="comment">
-                  <div class="comment-body bb">
-                    <div class="comment-avatar">
-                      <div class="avatar">
-                        <!-- 挿入 -->
-                      </div>
-                    </div>
-                    <div class="comment-text">
-                      <div class="comment-author clearfix">
-                        <a href="#" class="link-author"><%= post_comment.user.name %></a>
-                        <span class="comment-meta">
-                          <span class="comment-date"><%= @post_image.created_at.strftime('%Y/%m/%d') %></span>
-                        </span>
-                      </div>
-                      <div class="comment-entry"><%= post_comment.comment %></div>
+              <li class="comment">
+                <div class="comment-body bb">
+                  <div class="comment-avatar">
+                    <div class="avatar">
+                      <!-- 挿入 -->
                     </div>
                   </div>
-                </li>
+                  <div class="comment-text">
+                    <div class="comment-author clearfix">
+                      <a href="#" class="link-author"><%= post_comment.user.name %></a>
+                      <span class="comment-meta">
+                        <span class="comment-date"><%= @post_image.created_at.strftime('%Y/%m/%d') %></span>
+                      </span>
+                    </div>
+                    <div class="comment-entry"><%= post_comment.comment %></div>
+                  </div>
+                </div>
+              </li>
               <% end %>
             </ol>
           </div>
@@ -68,12 +77,12 @@
             </h3>
           </div>
           <%= form_for [@post_image, @post_comment] do |f| %>
-            <div class="row">
-              <div class="col-sm-12">
-                <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
-              </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
             </div>
-            <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+          </div>
+          <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
           <% end %>
         </div>
       </div>
