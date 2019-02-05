@@ -11,6 +11,6 @@ Rails.application.routes.draw do
  	 # idを受け渡す必要がなくresourceとしています。
   end
 
-  resources :users,only: [:show]
+  resources :users,only: [:show, :edit, :update]
 
 end

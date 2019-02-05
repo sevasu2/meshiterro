@@ -13,7 +13,7 @@ class PostImagesController < ApplicationController
 		  # redirect_to：HTTPリクエストを送るため、ルーティングから処理が行われます。
 		else
 			render :new
-			render：他のビューを呼び出す。
+			# render：他のビューを呼び出す。
 			# ※通常、呼び出されるビューは呼び出し元のコントローラ名とアクション名で決まるが、
 			# renderを使うことで他のビューが呼び出せます。
 			# この際、呼び出し先でインスタンス変数が使われていると、
