@@ -10,9 +10,6 @@
           <div class="form-body">
 
             <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <!-- resourceはdevise独自の記述です。form_forで利用するモデルを取得し、モデル名としてresource_nameを使用できるようにしています。 -->
-            <!-- 今回はユーザテーブル作成時に実行したrails g devise Userで作成したUserを取得しています。 -->
-            <!-- urlはform_forのオプションです。<%= form.submit %>を押した時のアクションを設定することが出来ます。今回はregistration_path（ ＝ deviseの新規登録を行うコントローラ）へUserモデルを渡す記述をしています。 -->
             <%= devise_error_messages! %>
             <div class="form-group has-icon">
               <label class="control-label sr-only" for="inputEmail">Name</label>
@@ -36,6 +33,9 @@
             </div>
             <%= f.submit "サインアップ", class:"btn btn-lg btn-block btn-base-1 mt-20" %>
             <% end %>
+            <!-- resourceはdevise独自の記述です。form_forで利用するモデルを取得し、モデル名としてresource_nameを使用できるようにしています。 -->
+            <!-- 今回はユーザテーブル作成時に実行したrails g devise Userで作成したUserを取得しています。 -->
+            <!-- を押した時のアクションを設定することが出来ます。今回はregistration_path（ ＝ deviseの新規登録を行うコントローラ）へUserモデルを渡す記述をしています。 --> <!-- -->
 
           </div>
         </div>
