@@ -37,6 +37,7 @@ User
 	
   password:string
   
+  
 PostImage
 
   id:integer
@@ -48,6 +49,7 @@ PostImage
   image_id:integer
 	
   user_id:integer
+  
 
 PostComment
 
@@ -58,6 +60,7 @@ PostComment
   user_id:integer
 	
   post_image_id:integer
+  
   
 Favorite
 
